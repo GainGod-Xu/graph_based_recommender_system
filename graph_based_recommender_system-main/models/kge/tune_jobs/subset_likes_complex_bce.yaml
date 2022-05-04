@@ -1,0 +1,35 @@
+job.type: search
+search.type: ax
+
+dataset.name: subset_likes
+model: transe
+valid.metric: mean_reciprocal_rank
+
+ax_search:
+  num_trials: 200
+  num_sobol_trials: 15  # remaining trials are Bayesian
+  parameters:
+    - name: train.batch_size
+      type: choice
+      values: [64, 128, 256, 512]
+    - name: train.optimizer_args.lr
+      type: range
+      bounds: [0.0003, 1.0]
+    - name: lookup_embedder.dim
+      type: choice
+      values: [64, 128, 256, 512, 1024]
+    - name: lookup_embedder.dropout
+      type: range
+      bounds: [0.2, 0.8]
+    - name: lookup_embedder.regularize_weight
+      type: range
+      bounds: [0.0, 0.1]
+    - name: train.type
+      type: fixed
+      value: negative_sampling
+    - name: train.max_epochs
+      type: fixed
+      value: 40
+    - name: train.loss
+      type: fixed
+      value: bce

@@ -1,0 +1,5 @@
+#!/bin/bash
+# run benchmark dataset
+export CUDA_VISIBLE_DEVICES=7
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
+python models/CompGCN/run.py 
